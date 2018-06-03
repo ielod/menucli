@@ -68,6 +68,7 @@ Usage of CLI
 To list configured restaurants:
 
 > menucli list
+
 > menucli list --detailed
 
 To query the daily menu:
@@ -77,6 +78,7 @@ To query the daily menu:
 e.g.:
 
 > menucli show eurest
+
 > menucli show --oneline ibm
  
 
