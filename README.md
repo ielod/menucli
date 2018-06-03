@@ -2,12 +2,12 @@ Menu CLI
 ============
 
 This python package provides a CLI for getting the daily menu from
-restaurant's Facebook pages.
+restaurants' Facebook pages.
 
 This CLI can only be used for restaurants, that
-* has facebook pages
-* posts their menu on daily bases in written text!!!
-* does not post other things...
+* have facebook pages
+* post their menu on daily bases in written text!!!
+* do not post other things...
 
 To make this CLI work you need to be able to use the facebook graph API.
 That means, you have to have an app ID and api token for that app id.
@@ -62,17 +62,22 @@ Example yaml file:
         tag: '234719740030074'
 
 
-
 Usage of CLI
 ------------
 
+To list configured restaurants:
+
+> menucli list
+> menucli list --detailed
+
 To query the daily menu:
 
-> menucli <restaurant name>
+> menucli show <restaurant name>
 
 e.g.:
 
-> menucli eurest
+> menucli show eurest
+> menucli show --oneline ibm
  
 
 Run tests for source code
