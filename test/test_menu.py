@@ -2,6 +2,8 @@ import datetime
 import mock
 import unittest
 
+import yaml
+
 from menucli import menu
 
 
@@ -47,18 +49,18 @@ EXAMPLE_VALID_JSON = {
 class TestMenuCLI(unittest.TestCase):
 
     def setUp(self):
-        self.patch_rawconfig_parser = mock.patch('menucli.menu.ConfigParser.RawConfigParser')
+        self.patch_rawconfig_parser = mock.patch('menucli.menu.configparser.RawConfigParser')
         self.mock_rawconfig_parser = self.patch_rawconfig_parser.start()
         self.patch_open = mock.patch('menucli.menu.open')
         self.mock_open = self.patch_open.start()
-        self.patch_yaml = mock.patch('menucli.menu.yaml')
+        self.patch_yaml = mock.patch('menucli.menu.yaml.load')
         self.mock_yaml = self.patch_yaml.start()
         self.patch_json = mock.patch('menucli.menu.json')
         self.mock_json = self.patch_json.start()
         self.patch_requests = mock.patch('menucli.menu.requests')
         self.mock_requests = self.patch_requests.start()
 
-        self.mock_yaml.load.return_value = EXAMPLE_YAML_CONTENT
+        self.mock_yaml.return_value = EXAMPLE_YAML_CONTENT
 
         self.menucli = menu.MenuCLI()
 
@@ -143,29 +145,28 @@ class TestMenuCLI(unittest.TestCase):
                          str(context.exception))
 
     def test_yaml_ioerror(self):
-        self.mock_yaml.load.side_effect = IOError()
+        self.mock_open.side_effect = IOError()
         with self.assertRaises(menu.MenuException) as context:
             self.menucli._read_yaml()
         self.assertEqual('Restaurant list file not found: {}'.format(menu.YAML_FILE),
                          str(context.exception))
 
     def test_yaml_yamlerror(self):
-        self.mock_yaml.YAMLError = Exception
-        self.mock_yaml.load.side_effect = Exception(EXCEPTION_DUMMY_MESSAGE)
+        self.mock_yaml.side_effect = yaml.YAMLError(EXCEPTION_DUMMY_MESSAGE)
         with self.assertRaises(menu.MenuException) as context:
             self.menucli._read_yaml()
         self.assertEqual('YAML load error: {}'.format(EXCEPTION_DUMMY_MESSAGE),
                          str(context.exception))
 
     def test_yaml_keyerror(self):
-        self.mock_yaml.load.side_effect = KeyError()
+        self.mock_yaml.side_effect = KeyError()
         with self.assertRaises(menu.MenuException) as context:
             self.menucli._read_yaml()
         self.assertEqual('Restaurants not found in YAML...'.format(EXCEPTION_DUMMY_MESSAGE),
                          str(context.exception))
 
     def test_empty_yaml(self):
-        self.mock_yaml.load.return_value = {'restaurants': None}
+        self.mock_yaml.return_value = {'restaurants': None}
         with self.assertRaises(menu.MenuException) as context:
             self.menucli._read_yaml()
         self.assertEqual('0 entry in restaurant list...'.format(EXCEPTION_DUMMY_MESSAGE),

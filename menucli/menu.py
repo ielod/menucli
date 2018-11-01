@@ -1,6 +1,6 @@
-import ConfigParser
-from ConfigParser import NoSectionError
-from ConfigParser import NoOptionError
+import configparser
+from configparser import NoSectionError
+from configparser import NoOptionError
 import datetime
 import os
 import re
@@ -34,7 +34,7 @@ class MenuCLI(object):
         app_id = None
         app_token = None
         try:
-            config = ConfigParser.RawConfigParser()
+            config = configparser.RawConfigParser()
             config.read(os.path.expanduser(CONFIG_FILE))
             app_id = config.get('MenuCLI', 'app_id')
             app_token = config.get('MenuCLI', 'app_token')
