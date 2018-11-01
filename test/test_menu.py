@@ -49,6 +49,8 @@ class TestMenuCLI(unittest.TestCase):
     def setUp(self):
         self.patch_rawconfig_parser = mock.patch('menucli.menu.ConfigParser.RawConfigParser')
         self.mock_rawconfig_parser = self.patch_rawconfig_parser.start()
+        self.patch_open = mock.patch('menucli.menu.open')
+        self.mock_open = self.patch_open.start()
         self.patch_yaml = mock.patch('menucli.menu.yaml')
         self.mock_yaml = self.patch_yaml.start()
         self.patch_json = mock.patch('menucli.menu.json')
@@ -62,6 +64,7 @@ class TestMenuCLI(unittest.TestCase):
 
     def tearDown(self):
         self.patch_rawconfig_parser.stop()
+        self.patch_open.stop()
         self.patch_yaml.stop()
         self.patch_json.stop()
         self.patch_requests.stop()
