@@ -19,7 +19,7 @@ class MenuException(Exception):
     pass
 
 
-class MenuCLI(object):
+class MenuCLI:
 
     def __init__(self):
         self.app_id, self.app_token = self._read_config()
@@ -77,8 +77,7 @@ class MenuCLI(object):
             raise MenuException(str(exc))
         if response.status_code == 200:
             return json.loads(response.content)
-        else:
-            raise MenuException("Server response: {}".format(response.status_code))
+        raise MenuException("Server response: {}".format(response.status_code))
 
     def _fetch_menu(self, restaurant):
         fetched_data = self._fetch_url(restaurant)
