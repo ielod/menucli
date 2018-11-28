@@ -20,14 +20,18 @@ To install use e.g. easy_install:
 
 > sudo easy_install menucli-X.Y-py2.7.egg
 
-This will install the CLI.
+or pip in the repository's directory:
+
+> sudo pip install .
+
+These will install the CLI.
 
 
 Config File
 -----------
 
 To be able to fetch data from Facebook Graph API a config file has to be
-created under the user's home: ~/.config/menucli/menucli.cfg
+created under the user's home: `~/.config/menucli/menucli.cfg`
 Which should contain a Facebook App ID and App token.
 
 Example config file content:
@@ -40,8 +44,8 @@ Example config file content:
 Restaurant YAML File
 --------------------
 
-The restaurant information should be listed in the file: 
-~/.config/menucli/restaurants.json
+The restaurant information should be listed in the file:
+`~/.config/menucli/restaurants.yaml`
 
 It should contain entries with name, description, and tag, where:
 * name: the short name of the restaurant without spaces
@@ -49,6 +53,14 @@ It should contain entries with name, description, and tag, where:
 * description: the full name of the restaurant (and location)
 * tag: the facebook unique name (or ID) of the restaurant, which is the name in
   the facebook url
+
+The name or ID can be figured out from the link, e.g.:
+
+`https://www.facebook.com/Bobs-Hamburger-Place-839179249594736/`
+
+the name is: `Bobs-Hamburger-Place`
+the id is: `839179249594736`
+Both can be used in the tag field.
 
 Example yaml file:
 
