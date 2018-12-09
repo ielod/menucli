@@ -85,7 +85,7 @@ class MenuCLI:
         todays_offer = None
         try:
             for item in fetched_data['data']:
-                if item['created_time'] >= today:
+                if item['created_time'] >= today and 'message' in item:
                     todays_offer = self._format_todays_offer(item['message'])
         except Exception:
             # print(fetched_data)
