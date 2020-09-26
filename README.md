@@ -1,5 +1,10 @@
 Menu CLI
-============
+========
+
+    NOTE: This package is based on Facebook's Graph API which has
+    changed. When this tool was created and used, to get an App
+    token was easy and straightforward, which is not the case
+    anymore.
 
 This python package provides a CLI for getting the daily menu from
 restaurants' Facebook pages.
